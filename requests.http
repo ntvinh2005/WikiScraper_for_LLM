@@ -2,8 +2,8 @@ POST http://localhost:3000/scrape
 Content-Type: application/json
 
 {
-    "url": "https://en.wikipedia.org/wiki/Luis_Mu%C3%B1oz_Mar%C3%ADn_International_Airport"
+    "url": "https://en.wikipedia.org/wiki/Web_scraping"
 }
 
 ### Retrieve Data by URL
-GET http://localhost:3000/data?url=https://en.wikipedia.org/wiki/Luis_Mu%C3%B1oz_Mar%C3%ADn_International_Airport
+GET http://localhost:3000/data?url=https://en.wikipedia.org/wiki/Pan_Am_Flight_214
