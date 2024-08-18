@@ -23,20 +23,16 @@ async function scrapeWikipediaPage(url) {
     const driver = new Builder().forBrowser('chrome').setChromeOptions(options).build();
 
     try {
-        // Connect to MongoDB
         await mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-        // Navigate to the Wikipedia page
         await driver.get(url);
         await driver.wait(until.elementLocated(By.tagName('p')), 10000);
 
-        // Extract and store paragraphs
         const paragraphs = await driver.findElements(By.tagName('p'));
 
         for (const paragraph of paragraphs) {
             let paragraphText = await paragraph.getText();
 
-            // Remove any content within square brackets (links, references, etc.)
             paragraphText = paragraphText.replace(/\[[^\]]*\]/g, '').trim();
 
             if (paragraphText !== "") {
@@ -44,7 +40,6 @@ async function scrapeWikipediaPage(url) {
             }
         }
 
-        // Extract and store links
         const linkElements = await driver.findElements(By.css('a[href^="/wiki/"]:not([href*=":"])'));
         const linksSet = new Set();
 
@@ -65,10 +60,7 @@ async function scrapeWikipediaPage(url) {
         }
     } catch (error) {
         console.error('An error occurred:', error);
-    } finally {
-        await driver.quit();
-        await mongoose.disconnect();
-    }
+    } 
 }
 
 module.exports = scrapeWikipediaPage;
